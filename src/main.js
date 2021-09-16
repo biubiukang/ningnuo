@@ -2,6 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import MyPlugin from './utils'
+import fastClick from 'fastclick'
+fastClick.attach(document.body);
+
 // 引入全局样式
 import '@/assets/css/index.scss'
 // 全局引入按需引入UI库 vant
@@ -17,7 +21,7 @@ import loadingUIRegistry from './components/FullscreenLoading/index'
 Vue.use(loadingUIRegistry)
 
 Vue.config.productionTip = false
-
+Vue.use(MyPlugin)
 new Vue({
   router,
   store,

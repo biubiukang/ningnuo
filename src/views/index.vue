@@ -13,12 +13,18 @@ export default {
     title: String,
     context: String,
   },
-  methods: {
-    start() {
-      console.log("start");
-      this.$emit("startAnswer");
-    },
-  },
+  // methods: {
+  //   start() {
+  //     console.log("start");
+  //     this.$emit("startAnswer");
+  //   },
+  // },
+  methods:{
+      start(){
+        console.log('start')
+        this.$emit('start');
+      }
+  }
 };
 </script>
 <style lang="scss">
@@ -41,27 +47,6 @@ export default {
     cursor: pointer;
     vertical-align: middle;
     margin-top: 250px;
-  }
-  .button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-  }
-  .button span:after {
-    content: "»";
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-  }
-  .button:hover span {
-    padding-right: 25px;
-  }
-  .button:hover span:after {
-    opacity: 1;
-    right: 0;
   }
 }
 </style>

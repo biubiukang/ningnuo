@@ -16,6 +16,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  background: #d9e9ff;
+  // background: #D9E9FF;
 }
 </style>
