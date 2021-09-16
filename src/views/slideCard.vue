@@ -210,7 +210,7 @@ export default {
         }
       }
 
-      if ([1, 4, 7].includes(this.currentIndex)) {
+      if ([2, 4, 7].includes(this.currentIndex)) {
         let loadingui = this.$loadingui({
           type: "auto",
           story: this.storys["s" + this.currentIndex],

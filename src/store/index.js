@@ -10,24 +10,25 @@ export default new Vuex.Store({
   state: {
     cardArrs: [
       {
-        text: "card-1",
-        zIndex: 10,
+        text: "card-0",
+        zIndex: 11,
         bgColor: "red",
         url: require("../assets/img/index.jpg"),
         scale: 1,
         translateY: 0,
         transitionTime: 1,
-        Id: "index",
-        Choices: [
-          {
-            label: "立马扔掉手机，起床仔细研究",
-            value: "A1",
-          },
-          {
-            label: "震惊以后以为自己在做梦，继续睡",
-            value: "A2",
-          },
-        ]
+        Id: "index"
+      },
+      {
+        // todo 资料页面
+        text: "card-1",
+        zIndex: 10,
+        bgColor: "red",
+        url: require("../assets/img/index.jpg"),
+        scale: 0.95,
+        translateY: 0,
+        transitionTime: 1,
+        Id: "profile",
       },
       {
         text: "card-2",

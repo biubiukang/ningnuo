@@ -13,12 +13,6 @@ export default {
     title: String,
     context: String,
   },
-  // methods: {
-  //   start() {
-  //     console.log("start");
-  //     this.$emit("startAnswer");
-  //   },
-  // },
   methods:{
       start(){
         console.log('start')
