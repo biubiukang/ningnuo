@@ -112,6 +112,11 @@ export default {
           transitionTime: 0
         },
       ],
+      storys: {
+        's0': "校园奇妙⽇： 翌⽇，醒来后，你 发现宁诺的校园 ⾥，充斥着不寻常 的⽓氛…… 宁诺居然变成了魔 法学校？",
+        's1': "⾛过诺丁桥",
+        's2': "正在分析你的校园 魔法⼈格…… xx（昵称）的魔法 职业为xxx 这样的职业仅占宁 诺的 xx%"
+      },
       isClick: true,
       startY: 0, // 触摸位置
       endY: 0, // 结束位置
@@ -225,6 +230,9 @@ export default {
     // 滑动结束
     playerTouchEnd (ev) {
       ev = ev || event
+      if(this.currentIndex == 1) {
+
+      }
       if (ev.changedTouches.length === 1) {
         this.endY = ev.changedTouches[0].clientY
         console.log('滑动结束-endY', this.endY)

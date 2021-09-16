@@ -1,29 +1,29 @@
 <template>
   <div class="index">
-    <div class="title">宁诺大学</div>
+    <div class="title">Demo</div>
     <div>
-      <button class="button" @click.stop="start"><span>点击测试</span></button>
+      <button class="button" @click.stop="start"><span>开始测试</span></button>
     </div>
   </div>
 </template>
 <script>
 export default {
   name: "Index",
-  props:{
-      title:String,
-      context:String,
+  props: {
+    title: String,
+    context: String,
   },
-  methods:{
-      start(){
-          console.log('start')
-        this.$emit('showCityName');
-      }
-  }
+  methods: {
+    start() {
+      console.log("start");
+      this.$emit("startAnswer");
+    },
+  },
 };
 </script>
 <style lang="scss">
 .index {
-    padding-top:50px;
+  padding-top: 50px;
   .title {
     color: white;
   }

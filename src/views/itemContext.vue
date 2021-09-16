@@ -1,11 +1,10 @@
 <template>
- <div><slot name="head" k='kkk'></slot></div>
+  <div><slot name="head" k="kkk"></slot></div>
 </template>
 <script>
-export default{
-    name:'itemContext',
-    
-}
+export default {
+  name: "itemContext",
+};
 </script>
 <style lang="scss">
 * {
@@ -19,6 +18,6 @@ export default{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  background: #D9E9FF;
+  background: #d9e9ff;
 }
 </style>

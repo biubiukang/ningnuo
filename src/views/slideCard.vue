@@ -28,9 +28,9 @@
             { background: `url(${item.url})` },
             { backgroundSize: 'cover' },
           ]"
-        > 
-           <Index v-if="item.Id==='index'" @showCityName="slideUp"/>
-          <Question v-if="item.Id!=='index'" v-bind="item"></Question>
+        >
+          <Question v-bind="item"></Question>
+          <Index v-if="item.Id === 'profile'" @startAnswer="slideUp" />
         </div>
       </div>
     </div>
@@ -45,27 +45,37 @@ import Question from "./question.vue";
 // import Q4 from "./q4.vue";
 // import Q5 from "./q5.vue";
 // import Q6 from "./q6.vue";
-import  qs from 'qs'
+import qs from "qs";
 export default {
   components: {
     itemContext,
     Index,
-    Question
+    Question,
   },
   data() {
     return {
       cardArrs: [
         {
-          text: "card-1",
-          zIndex: 10,
+          text: "card-0",
+          zIndex: 11,
           bgColor: "red",
           url: require("../assets/img/index.jpg"),
           scale: 1,
           translateY: 0,
           transitionTime: 1,
-          Id: 'index',
-          leftChoice:'立马扔掉手机，起床仔细研究',
-          rightChoice:'震惊以后以为自己在做梦，继续睡'
+        },
+        {
+          text: "card-1",
+          zIndex: 10,
+          bgColor: "red",
+          url: require("../assets/img/index.jpg"),
+          scale: 0.95,
+          translateY: 0,
+          transitionTime: 1,
+          leftChoice:
+            "1.姓名 <br>2.性别 <br>3.学院 <br>4.专业 <br>5.电话 <br>6.微信 <br>7.理想职业是什么",
+          rightChoice: "xxx",
+          Id: "profile",
         },
         {
           text: "card-2",
@@ -75,10 +85,11 @@ export default {
           scale: 0.9,
           translateY: "9vh",
           transitionTime: 1,
-          title:'Q1',
-          context:'铃声响起，你觉得脸上痒痒的，好像有猫咪在舔你. 睁开眼睛，发现你的手机长出了舌头！ 你会....',
-          leftChoice:'立马扔掉手机，起床仔细研究',
-          rightChoice:'震惊以后以为自己在做梦，继续睡'
+          title: "Q1",
+          context:
+            "铃声响起，你觉得脸上痒痒的，好像有猫咪在舔你. 睁开眼睛，发现你的手机长出了舌头！ 你会....",
+          leftChoice: "立马扔掉手机，起床仔细研究",
+          rightChoice: "震惊以后以为自己在做梦，继续睡",
         },
         {
           text: "card-3",
@@ -88,10 +99,11 @@ export default {
           url: require("../assets/img/q2.jpg"),
           translateY: "14vh",
           transitionTime: 1,
-          title:'Q2',
-          context:'出门以后,滑轮四周的树居然都变得光秃秃，只有几朵巨大艳丽得花，所有生物得大小彷佛都颠倒了······一直巨大得诺丁鸭朝你走来，你会',
-          leftChoice:'觉得很神奇，远远地和它合照就好',
-          rightChoice:'好奇的上前，尝试和诺丁鸭搭讪'
+          title: "Q2",
+          context:
+            "出门以后,滑轮四周的树居然都变得光秃秃，只有几朵巨大艳丽得花，所有生物得大小彷佛都颠倒了······一直巨大得诺丁鸭朝你走来，你会",
+          leftChoice: "觉得很神奇，远远地和它合照就好",
+          rightChoice: "好奇的上前，尝试和诺丁鸭搭讪",
         },
         {
           text: "card-4",
@@ -101,10 +113,11 @@ export default {
           scale: 0.5,
           translateY: "40vh",
           transitionTime: 1,
-          title:'Q3',
-          context:'走过诺丁桥，你看到一个美丽得魔女，但她并没有发现你,一个人坐在图书馆门外草坪。你会：',
-          leftChoice:'鼓起勇气，尝试向她询问发生了什么',
-          rightChoice:'默默走开，等她发现你之前，现自己探索'
+          title: "Q3",
+          context:
+            "走过诺丁桥，你看到一个美丽得魔女，但她并没有发现你,一个人坐在图书馆门外草坪。你会：",
+          leftChoice: "鼓起勇气，尝试向她询问发生了什么",
+          rightChoice: "默默走开，等她发现你之前，现自己探索",
         },
         {
           text: "card-5",
@@ -114,10 +127,11 @@ export default {
           scale: 0.5,
           translateY: "40vh",
           transitionTime: 0,
-          title:'Q4',
-          context:'魔女与你交谈，他告诉你，这个世界所有事物都混乱了，意味着你不再是学生，可以做自己想做的任何事。你会：',
-          leftChoice:'感到有点兴奋',
-          rightChoice:'感到有点不安'
+          title: "Q4",
+          context:
+            "魔女与你交谈，他告诉你，这个世界所有事物都混乱了，意味着你不再是学生，可以做自己想做的任何事。你会：",
+          leftChoice: "感到有点兴奋",
+          rightChoice: "感到有点不安",
         },
         {
           text: "card-6",
@@ -127,10 +141,11 @@ export default {
           scale: 0.5,
           translateY: "40vh",
           transitionTime: 0,
-          title:'Q5',
-          context:'进入了图书馆，发现空气中漂浮着各种各样的人物职业形象气泡，你好奇地伸手触碰，一阵神奇的 力量涌入了你的身体：你拥有了匹配的技能！但同时，一阵困倦感袭来，你会：',
-          leftChoice:'还是尽量多触碰几个感兴趣的气泡，这样的机会可不多',
-          rightChoice:'还是要谨慎一点，这事不着急，小命更重要'
+          title: "Q5",
+          context:
+            "进入了图书馆，发现空气中漂浮着各种各样的人物职业形象气泡，你好奇地伸手触碰，一阵神奇的 力量涌入了你的身体：你拥有了匹配的技能！但同时，一阵困倦感袭来，你会：",
+          leftChoice: "还是尽量多触碰几个感兴趣的气泡，这样的机会可不多",
+          rightChoice: "还是要谨慎一点，这事不着急，小命更重要",
         },
         {
           text: "card-7",
@@ -140,12 +155,18 @@ export default {
           url: require("../assets/img/q6.jpg"),
           translateY: "40vh",
           transitionTime: 0,
-          title:'Q6',
-          context:'在一个房间内，你看到了一面魔镜。它对你说：你有一次机会，可以在里面看到 10 年后的自己，但 要注意的是：如果你心里不确定自己会变成什么样，可能会被未来吞噬……你选择： 目的：如果后台能看到此选项数据，可以获知大概的职业规划需求 画面：小人站在魔镜前，魔镜闪闪发光，里面有一个模糊的小人影子',
-          leftChoice:'已经有模糊的方向，可以一试',
-          rightChoice:'没有较确定的猜想，还是不看了'
+          title: "Q6",
+          context:
+            "在一个房间内，你看到了一面魔镜。它对你说：你有一次机会，可以在里面看到 10 年后的自己，但 要注意的是：如果你心里不确定自己会变成什么样，可能会被未来吞噬……你选择： 目的：如果后台能看到此选项数据，可以获知大概的职业规划需求 画面：小人站在魔镜前，魔镜闪闪发光，里面有一个模糊的小人影子",
+          leftChoice: "已经有模糊的方向，可以一试",
+          rightChoice: "没有较确定的猜想，还是不看了",
         },
       ],
+      storys: {
+        's1': "校园奇妙⽇： 翌⽇，醒来后，你 发现宁诺的校园 ⾥，充斥着不寻常 的⽓氛…… 宁诺居然变成了魔 法学校？",
+        's4': "⾛过诺丁桥",
+        's7': "正在分析你的校园 魔法⼈格…… xx（昵称）的魔法 职业为xxx 这样的职业仅占宁 诺的 xx%",
+      },
       isClick: true,
       startY: 0, // 触摸位置
       endY: 0, // 结束位置
@@ -166,7 +187,6 @@ export default {
       if (ev?.touches?.length === 1) {
         // 记录开始位置
         this.startY = ev.touches[0].clientY;
-        console.log("开始触摸-startY", this.startY);
       }
     },
     // 滑动中
@@ -178,7 +198,6 @@ export default {
         this.moveY = ev.touches[0].clientY;
         // 起始位置减去实时的滑动的距离,得到手指实时偏移距离
         this.disY = this.startY - this.moveY;
-        console.log("滑动-disY", this.disY);
         // 判断滑动方向
         if (this.disY < 0) {
           // 向下滑
@@ -285,6 +304,25 @@ export default {
           }
         }
       }
+
+      if ([1, 4, 7].includes(this.currentIndex)) {
+        let loadingui = this.$loadingui({
+          type: "auto",
+          story: this.storys["s" + this.currentIndex],
+          callback: () => {
+            // eslint-disable-next-line no-console
+            console.log("finish");
+          },
+        });
+        let percent = 0;
+        let obj = setInterval(() => {
+          percent += 3;
+          if (percent >= 50) {
+            loadingui.close();
+            clearInterval(obj);
+          }
+        }, 200);
+      }
     },
     // 回到起点
     returnBack() {
@@ -317,7 +355,7 @@ export default {
     },
     // 向上滑动切换
     slideUp() {
-      console.log(333)
+      console.log(333);
       if (this.currentIndex === this.cardArrs?.length - 1) {
         return this.returnBack();
       }
@@ -390,31 +428,29 @@ export default {
       }
       console.log("currentIndex---", this.currentIndex);
     },
-    	/* 获取url中的参数方法 */
-		GetRequest() { 
-      var url = window.location.href; //获取url中"?"符后的字串 
-      console.log(url)
-			var theRequest = new Object(); 
-			if (url.indexOf("?") != -1) {
-				var str = url.substr(1); 
-				strs = str.split("&"); 
-				for(var i = 0; i < strs?.length; i ++) {
-					theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]); 
-				} 
-			} 
-			return theRequest; 
-		} 
-
-
+    /* 获取url中的参数方法 */
+    GetRequest() {
+      var url = window.location.href; //获取url中"?"符后的字串
+      console.log(url);
+      var theRequest = new Object();
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs?.length; i++) {
+          theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+      }
+      return theRequest;
+    },
   },
-  created(){
-  //   const url = window.location.href
-  //  let data = qs.parse(url.split('?')[1]);
-  //  if(!data.code){
-  //      window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx35a905e0b2b65a65&redirect_uri=http://nz74fmo5uiz3.ngrok2.xiaomiqiu.cn/&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
-  //  }
-   // window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx35a905e0b2b65a65&redirect_uri=http://nz74fmo5uiz3.ngrok2.xiaomiqiu.cn/&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
-  }
+  created() {
+    //   const url = window.location.href
+    //  let data = qs.parse(url.split('?')[1]);
+    //  if(!data.code){
+    //      window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx35a905e0b2b65a65&redirect_uri=http://nz74fmo5uiz3.ngrok2.xiaomiqiu.cn/&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
+    //  }
+    // window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx35a905e0b2b65a65&redirect_uri=http://nz74fmo5uiz3.ngrok2.xiaomiqiu.cn/&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -432,7 +468,7 @@ export default {
 .card-item {
   position: absolute;
   width: 100%;
-  height: 12rem;
+  height: 18rem;
   text-align: center;
   font-size: 18px;
   border-radius: 5px;
@@ -443,7 +479,7 @@ export default {
     margin: 0 auto;
     box-shadow: 0 4px 12px 1px rgba(57, 57, 57, 0.14);
     position: relative;
-    border-radius: 12px;
+    border-radius: 15px;
   }
 }
 </style>
