@@ -30,8 +30,8 @@
             { backgroundSize: 'cover' },
           ]"
         >
-        <Question v-bind="item" @nextPage="nextPage"></Question>
-        <Index v-if="item.Id === 'profile'" @start="start" />
+          <Question v-bind="item" @nextPage="nextPage"></Question>
+          <Index v-if="item.Id === 'profile'" @start="start" />
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
 <script>
 import Index from "./index.vue";
 import Question from "./question.vue";
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 // import Q2 from "./q2.vue";
 // import Q3 from "./q3.vue";
 // import Q4 from "./q4.vue";
@@ -52,17 +52,15 @@ export default {
     Index,
     Question,
   },
-  computed:{
-    ...mapState([
-      'cardArrs'
-     ]),
+  computed: {
+    ...mapState(["cardArrs"]),
   },
   data() {
     return {
       storys: {
-        's2': "校园奇妙⽇： 翌⽇，醒来后，你 发现宁诺的校园 ⾥，充斥着不寻常 的⽓氛…… 宁诺居然变成了魔 法学校？",
-        's4': "⾛过诺丁桥",
-        's7': "正在分析你的校园 魔法⼈格…… xx（昵称）的魔法 职业为xxx 这样的职业仅占宁 诺的 xx%",
+        s2: "校园奇妙⽇： 翌⽇，醒来后，你 发现宁诺的校园 ⾥，充斥着不寻常 的⽓氛…… 宁诺居然变成了魔 法学校？",
+        s4: "⾛过诺丁桥",
+        s7: "正在分析你的校园 魔法⼈格…… xx（昵称）的魔法 职业为xxx 这样的职业仅占宁 诺的 xx%",
       },
       isStart: false,
       isClick: true,
@@ -210,23 +208,28 @@ export default {
         }
       }
 
+
       if ([2, 4, 7].includes(this.currentIndex)) {
+        var _this = this
         let loadingui = this.$loadingui({
           type: "auto",
           story: this.storys["s" + this.currentIndex],
           callback: () => {
             // eslint-disable-next-line no-console
-            console.log("finish");
+            if (_this.currentIndex == _this.cardArrs.length - 1) {
+              _this.$router.push({
+                name: "Result",
+                param: {
+                  id: "xxx",
+                },
+              });
+            }
           },
         });
-        let percent = 0;
         let obj = setInterval(() => {
-          percent += 3;
-          if (percent >= 50) {
             loadingui.close();
             clearInterval(obj);
-          }
-        }, 200);
+        }, this.currentIndex == 4 ? 1000: 5000);
       }
     },
     // 回到起点

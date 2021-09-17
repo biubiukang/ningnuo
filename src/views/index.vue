@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <div class="title">Demo</div>
+    <div class="title">1.姓名<br>2.性别<br>3.学院<br>4.专业<br>5.电话<br>6.微信<br>7.理想职业是什么</div>
     <div>
       <button class="button" @click.stop="start"><span>开始测试</span></button>
     </div>

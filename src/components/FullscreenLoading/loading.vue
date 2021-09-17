@@ -1,9 +1,9 @@
 <template>
     <div class="preloader" v-if="showLoading">
         <div class="preloader-progress">
-            <div class="preloader-progress-bar" :style="{ width: loadPercent + '%' }">
+            <!-- <div class="preloader-progress-bar" :style="{ width: loadPercent + '%' }"> -->
                 {{ story }}
-            </div>
+            <!-- </div> -->
         </div>
     </div>
 </template>
@@ -86,11 +86,11 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background-color: rgba(23, 24, 24, 0.95);
+        background-color: rgb(23, 24, 24);
 
         /* background-image: linear-gradient(90deg,#52b6ec 10%,#19a9d5 90%); */
         z-index: 9999;
-        transition: opacity .65s;
+        transition: opacity .2s;
     }
 
     .preloader .preloader-progress {
