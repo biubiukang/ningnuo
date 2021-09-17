@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex, { mapState } from 'vuex'
-import getters from './getters'
 import app from './modules/app'
 import user from './modules/user'
 
@@ -175,7 +174,11 @@ export default new Vuex.Store({
       state.cardArrs.splice(index,1,obj)
     }
   },
-  getters:{
+  getters: {
+    // user
+    token: state => state.user.token,
+    userInfo: state => state.user.userInfo,
+    loginStatus: state => state.user.loginStatus,
     getCurrentChoiceByIndex: (state) => (index) => {
       return state.cardArrs[index].currentChoice
     }
@@ -188,6 +191,5 @@ export default new Vuex.Store({
   modules: {
     app,
     user
-  },
-  getters
+  }
 })
