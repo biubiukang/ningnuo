@@ -29,26 +29,12 @@ export default {
   mounted() {
     console.log(this.getCurrentChoiceByIndex(1));
   },
-<<<<<<< HEAD
   methods: {
     nextPage(index, choice) {
       this.changeCurrentChoice({ index, choice });
       // this.$emit('nextPage')
     },
     ...mapMutations(["changeCurrentChoice"]),
-=======
-  methods:{
-    start(){
-          console.log('start')
-        this.$emit('showCityName');
-      },
-    nextPage(index,choice){
-      this.changeCurrentChoice({index,choice})
-      this.$emit('nextPage')
-    },...mapMutations([
-      'changeCurrentChoice'
-    ])
->>>>>>> 提交
   },
   props: {
     title: String,
