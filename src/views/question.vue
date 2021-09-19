@@ -6,7 +6,7 @@
       <div v-for="(v, index) in Choices" :key="v.label">
         <selectCard
           :context="v.label"
-          :value="v.value"
+          :value="v.title"
           :class="{ active: getCurrentChoiceByIndex(index) == v.value }"
           @nextPage="nextPage(index, v.value)"
         ></selectCard>
@@ -48,16 +48,16 @@ export default {
 </script>
 <style lang="scss">
 .question {
-  padding: 12px 16px;
-  width: 80%;
+  padding: 16px 24px;
   color: #3C2D54;
   position: fixed;
+  left:0;
   bottom: 2rem;
   background: url('../assets/img/qblock.png');
   background-size: 100% 100%;
   .content {
     font-size: 20px;
-    padding: 5px;
+    padding: 8px;
     text-align: left;
   }
   .active {
