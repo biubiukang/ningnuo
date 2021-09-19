@@ -101,6 +101,7 @@ export default {
 <style lang="scss">
 .form-group {
   font-size: 0.4rem;
+  text-align: left;
   color: #39291c;
   margin-bottom: 15px;
 }
