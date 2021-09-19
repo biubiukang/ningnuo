@@ -24,7 +24,7 @@ export default new Vuex.Store({
         text: "card-1",
         zIndex: 10,
         bgColor: "red",
-        url: require("../assets/img/index.jpg"),
+        url: require("../assets/img/user.png"),
         scale: 0.95,
         translateY: 0,
         transitionTime: 1,

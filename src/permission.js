@@ -15,7 +15,7 @@ router.beforeEach(async (to, from, next) => {
   switch (Number(loginStatus)) {
     case 0:
       // 获取跳转地址
-      wechatAuth.redirect_uri = processUrl()
+      wechatAuth.redirect_uri = processUrl() + ''
       await store.dispatch('user/setLoginStatus', 1)
       window.location.href = wechatAuth.authUrl
       break

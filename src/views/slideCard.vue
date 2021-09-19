@@ -26,8 +26,8 @@
           class="item-inner"
           :class="isStart ? 'item-inner-animation' : ''"
           :style="[
-            { background: `url(${item.url})` },
-            { backgroundSize: 'cover' },
+            { background: `url(${item.url}) no-repeat` },
+            { backgroundSize: '100% 100%' },
           ]"
         >  
           <div v-for="(i, index) in item.components" :key="index">
@@ -40,25 +40,19 @@
           <div :class="[come?'come':'']">
              <Question v-if="!item.noQ" v-bind="item" @nextPage="nextPage"></Question>
           </div>        
-          <Index v-if="item.Id === 'profile'" @start="start" />
+          <Userinfo v-if="item.Id === 'profile'" @start="start" />
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import Index from "./index.vue";
+import Userinfo from "./userinfo.vue";
 import Question from "./question.vue";
 import { mapState } from "vuex";
-// import Q2 from "./q2.vue";
-// import Q3 from "./q3.vue";
-// import Q4 from "./q4.vue";
-// import Q5 from "./q5.vue";
-// import Q6 from "./q6.vue";
-import qs from "qs";
 export default {
   components: {
-    Index,
+    Userinfo,
     Question
   },
   computed: {
@@ -70,7 +64,7 @@ export default {
       storys: {
         s2: "校园奇妙⽇： 翌⽇，醒来后，你 发现宁诺的校园 ⾥，充斥着不寻常 的⽓氛…… 宁诺居然变成了魔 法学校？",
         s4: "⾛过诺丁桥",
-        s7: "正在分析你的校园 魔法⼈格…… xx（昵称）的魔法 职业为xxx 这样的职业仅占宁 诺的 xx%",
+        s8: "正在分析你的校园 魔法⼈格…… xx（昵称）的魔法 职业为xxx 这样的职业仅占宁 诺的 xx%",
       },
       isStart: false,
       isClick: true,
@@ -217,34 +211,35 @@ export default {
           // 滑动距离大于滑动限制的距离,滑动到最大值
           if (this.slideDirection === 1) {
             this.slideUp();
+            if ([2, 5, 8].includes(this.currentIndex)) {
+              var _this = this;
+              let loadingui = this.$loadingui({
+                type: "auto",
+                story: this.storys["s" + this.currentIndex],
+                callback: () => {
+                  // eslint-disable-next-line no-console
+                  if (_this.currentIndex == _this.cardArrs.length - 1) {
+                    _this.$router.push({
+                      name: "Result",
+                      param: {
+                        id: "xxx",
+                      },
+                    });
+                  }
+                },
+              });
+              let obj = setInterval(
+                () => {
+                  loadingui.close();
+                  clearInterval(obj);
+                },
+                this.currentIndex == 4 ? 1000 : 5000
+              );
+            }
           } else {
             this.slideDown();
           }
         }
-      }
-
-
-      if ([2, 4, 7].includes(this.currentIndex)) {
-        var _this = this
-        let loadingui = this.$loadingui({
-          type: "auto",
-          story: this.storys["s" + this.currentIndex],
-          callback: () => {
-            // eslint-disable-next-line no-console
-            if (_this.currentIndex == _this.cardArrs.length - 1) {
-              _this.$router.push({
-                name: "Result",
-                param: {
-                  id: "xxx",
-                },
-              });
-            }
-          },
-        });
-        let obj = setInterval(() => {
-            loadingui.close();
-            clearInterval(obj);
-        }, this.currentIndex == 4 ? 1000: 5000);
       }
     },
     // 回到起点
@@ -391,7 +386,7 @@ export default {
 }
 .card-wrapper {
   position: relative;
-  height: calc(65vh + 30px);
+  height: 90vh;
 }
 .come{
   animation: backInRight 3s;
@@ -477,7 +472,7 @@ export default {
 .card-item {
   position: absolute;
   width: 100%;
-  height: 18rem;
+  height: 100%;
   text-align: center;
   font-size: 18px;
   border-radius: 5px;
@@ -487,6 +482,7 @@ export default {
     box-sizing: border-box;
     width: 90vw;
     height: 100%;
+    padding: 0 18px;
     margin: 0 auto;
     box-shadow: 0 4px 12px 1px rgba(57, 57, 57, 0.14);
     position: relative;

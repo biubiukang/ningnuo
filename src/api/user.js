@@ -1,5 +1,6 @@
 import qs from 'qs'
 import request from '@/utils/request'
+import { api } from '@/config'
 
 /**
  * 登录接口请求token与userinfo
@@ -7,7 +8,7 @@ import request from '@/utils/request'
  */
 export function loginByCode(params) {
   return request({
-    url: 'https://o2gfdbeblbhb.ngrok2.xiaomiqiu.cn/weixin/api/mp/auth',
+    url: api.common_api +  '/weixin/api/mp/auth',
     method: 'post',
     data: qs.stringify(params)
   })
@@ -16,10 +17,17 @@ export function loginByCode(params) {
  * 获取登录用户信息
  * @param params
  */
-export function getUserInfo(params) {
+export function getUserInfo() {
   return request({
-    url: '/user/get_user',
-    method: 'post',
+    url: api.common_api + '/weixin/api/answer/userinfo',
+    method: 'get',
+  })
+}
+
+export function updateUserInfo(params) {
+  return request({
+    url: api.common_api + '/weixin/api/answer/userinfo',
+    method: 'put',
     data: qs.stringify(params)
   })
 }
