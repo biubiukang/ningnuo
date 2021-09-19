@@ -41,7 +41,7 @@
           </div>
           <div :class="[come ? 'come' : '']">
             <Question
-              v-if="!item.noQ"
+              v-if="!item.noQ&&show"
               v-bind="item"
               @nextPage="nextPage"
             ></Question>
@@ -67,6 +67,7 @@ export default {
   data() {
     return {
       shake: false,
+      show:false,
       storys: {
         s1: "校园奇妙⽇： 翌⽇，醒来后，你 发现宁诺的校园 ⾥，充斥着不寻常 的⽓氛…… 宁诺居然变成了魔 法学校？",
         s3: "⾛过诺丁桥",
@@ -205,6 +206,10 @@ export default {
     },
     // 滑动结束
     playerTouchEnd(ev) {
+      this.show = false
+      setTimeout(()=>{
+         this.show =true
+      },3000)
       ev = ev || event;
       if (ev?.changedTouches?.length === 1) {
         this.endY = ev.changedTouches[0].clientY;
