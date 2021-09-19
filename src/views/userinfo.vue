@@ -50,18 +50,15 @@ export default {
     context: String,
   },
   created() {
-    var _this = this;
     getUserInfo()
       .then((res) => {
-        // 存用户信息，token
         Toast.clear();
         const info = res.data;
-        // 这里注意修改成你访问的服务端接口规则
         Toast({
           message: res.msg,
         });
         if (res.code && res.code !== 200) {
-          _this.$emit("slideDown");
+          // this.$parent.slideUp();
         } else {
           this.username = info.username;
           this.sex = info.sex;
@@ -81,7 +78,7 @@ export default {
   },
   data() {
     return {
-      username: "张全蛋",
+      username: "张三",
       sex: null,
       school: null,
       subject: null,
@@ -92,8 +89,9 @@ export default {
   },
   methods: {
     start() {
-      console.log("start");
-      updateUserInfo({}).this.$emit("start");
+      this.$emit("start");
+      // updateUserInfo({});
+
     },
   },
 };

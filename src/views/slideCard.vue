@@ -217,7 +217,7 @@ export default {
           // 滑动距离大于滑动限制的距离,滑动到最大值
           if (this.slideDirection === 1) {
             this.slideUp();
-            if ([2, 5, 8].includes(this.currentIndex)) {
+            if ([2, 4, 8].includes(this.currentIndex)) {
               var _this = this;
               let loadingui = this.$loadingui({
                 type: "auto",

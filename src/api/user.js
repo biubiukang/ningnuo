@@ -8,7 +8,7 @@ import { api } from '@/config'
  */
 export function loginByCode(params) {
   return request({
-    url: api.common_api +  '/weixin/api/mp/auth',
+    url: api.base_api +  '/weixin/api/mp/auth',
     method: 'post',
     data: qs.stringify(params)
   })
@@ -19,14 +19,14 @@ export function loginByCode(params) {
  */
 export function getUserInfo() {
   return request({
-    url: api.common_api + '/weixin/api/answer/userinfo',
+    url: api.base_api + '/weixin/api/answer/userinfo',
     method: 'get',
   })
 }
 
 export function updateUserInfo(params) {
   return request({
-    url: api.common_api + '/weixin/api/answer/userinfo',
+    url: api.base_api + '/weixin/api/answer/userinfo',
     method: 'put',
     data: qs.stringify(params)
   })

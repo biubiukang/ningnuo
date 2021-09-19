@@ -33,7 +33,7 @@ export default {
   methods: {
     nextPage(index, choice) {
       this.changeCurrentChoice({ index, choice });
-      // this.$emit('nextPage')
+      this.$emit('nextPage')
     },
     ...mapMutations(["changeCurrentChoice"]),
   },
