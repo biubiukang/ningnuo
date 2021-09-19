@@ -29,8 +29,17 @@
             { background: `url(${item.url})` },
             { backgroundSize: 'cover' },
           ]"
-        >
-          <Question v-bind="item" @nextPage="nextPage"></Question>
+        >  
+          <div v-for="(i, index) in item.components" :key="index">
+              <div :style="[
+                          { background: `url(${i.img}) no-repeat` },
+                          {backgroundSize: 'contain'}]"
+                    :class="[shake?i.name:'']"
+            ></div>
+          </div>
+          <div :class="[come?'come':'']">
+             <Question v-if="!item.noQ" v-bind="item" @nextPage="nextPage"></Question>
+          </div>        
           <Index v-if="item.Id === 'profile'" @start="start" />
         </div>
       </div>
@@ -50,13 +59,14 @@ import qs from "qs";
 export default {
   components: {
     Index,
-    Question,
+    Question
   },
   computed: {
     ...mapState(["cardArrs"]),
   },
   data() {
     return {
+      shake:false,
       storys: {
         s2: "校园奇妙⽇： 翌⽇，醒来后，你 发现宁诺的校园 ⾥，充斥着不寻常 的⽓氛…… 宁诺居然变成了魔 法学校？",
         s4: "⾛过诺丁桥",
@@ -84,6 +94,11 @@ export default {
     },
     // 滑动开始
     playerTouchStart(ev) {
+      this.shake = false
+      setTimeout(() => {
+          // 取消晃动样式
+          this.shake = true
+      }, 800)
       ev = ev || event;
       this.isClick = true;
       // tounches类数组，等于1时表示此时有只有一只手指在触摸屏幕
@@ -352,6 +367,11 @@ export default {
     },
   },
   created() {
+    this.come = false
+    setTimeout(() => {
+        // 取消晃动样式
+        this.come = true
+    }, 800)
     //   const url = window.location.href
     //  let data = qs.parse(url.split('?')[1]);
     //  if(!data.code){
@@ -373,6 +393,87 @@ export default {
   position: relative;
   height: calc(65vh + 30px);
 }
+.come{
+  animation: backInRight 3s;
+}
+.phone{
+  position:absolute;
+  top:10%;
+  left:10%;
+  width:120px;
+  height: 80px;
+  background-size: contain;
+  animation: bounce 3s infinite; /* referring directly to the animation's @keyframe declaration */
+}
+.monv{
+  position:absolute;
+  bottom: 0;
+  width:300px;
+  height: 500px;
+  animation: bounceInUp 3s;
+}
+.student{
+  position:absolute;
+  right: 0;
+  width:100%;
+  height: 100vh;
+  border-radius: 15px;
+  animation: backInRight 3s;
+}
+.F1{
+  width:160px;
+  height:160px;
+  position:absolute;
+  right: 0;
+  animation: rubberBand 3s infinite;
+}
+.F2{
+  position:absolute;
+  left: 0;
+  top:150px;
+  width:140px;
+  height:140px;
+   animation: rubberBand 3s infinite;
+}
+.F3{
+  position:absolute;
+  right: 0;
+  top:200px;
+  width:140px;
+  height:140px;
+   animation: headShake 3s infinite;
+}
+.F4{
+  width:100px;
+  height:100px;
+  position:absolute;
+  left: 0;
+  bottom:0 ;
+   animation: headShake 3s infinite;
+}
+.F5{
+  position:absolute;
+  right: 50px;
+  bottom: 100px;
+  width:120px;
+  height:120px;
+   animation: headShake 3s infinite;
+}
+.F6{
+  width:100px;
+  height:100px;
+  position:absolute;
+  right: 0px;
+  bottom: 0;
+   animation: rubberBand 3s infinite;
+}
+.mojing{
+  width: 55%;
+    height: 60vh;
+    position: absolute;
+    bottom: 100px;
+    left: 25%;
+}
 .card-item {
   position: absolute;
   width: 100%;
@@ -381,7 +482,9 @@ export default {
   font-size: 18px;
   border-radius: 5px;
   will-change: transform;
+  overflow: hidden;
   .item-inner {
+    box-sizing: border-box;
     width: 90vw;
     height: 100%;
     margin: 0 auto;

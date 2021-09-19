@@ -16,7 +16,8 @@ export default new Vuex.Store({
         scale: 1,
         translateY: 0,
         transitionTime: 1,
-        Id: "index"
+        Id: "index",
+        noQ: true
       },
       {
         // todo 资料页面
@@ -28,6 +29,7 @@ export default new Vuex.Store({
         translateY: 0,
         transitionTime: 1,
         Id: "profile",
+        noQ: true
       },
       {
         text: "card-2",
@@ -38,6 +40,12 @@ export default new Vuex.Store({
         translateY: "9vh",
         transitionTime: 1,
         title: "Q1",
+        components: [
+          {
+            img: require("../assets/img/phone.png"),
+            name: 'phone'
+          }
+        ],
         context:
           "铃声响起，你觉得脸上痒痒的，好像有猫咪在舔你. 睁开眼睛，发现你的手机长出了舌头！ 你会....",
         Choices: [
@@ -84,7 +92,7 @@ export default new Vuex.Store({
         title: "Q3",
         context:
           "走过诺丁桥，你看到一个美丽得魔女，但她并没有发现你,一个人坐在图书馆门外草坪。你会：",
-          Choices: [
+        Choices: [
           {
             label: "鼓起勇气，尝试向她询问发生了什么",
             value: "B1",
@@ -104,9 +112,17 @@ export default new Vuex.Store({
         translateY: "40vh",
         transitionTime: 0,
         title: "Q4",
+        components: [
+          {
+            img: require("../assets/img/monv.png"),
+            name: 'monv'
+          }, {
+            img: require("../assets/img/student.png"),
+            name: 'student'
+          }],
         context:
           "魔女与你交谈，他告诉你，这个世界所有事物都混乱了，意味着你不再是学生，可以做自己想做的任何事。你会：",
-          Choices: [
+        Choices: [
           {
             label: "感到有点兴奋",
             value: "b1",
@@ -126,11 +142,33 @@ export default new Vuex.Store({
         translateY: "40vh",
         transitionTime: 0,
         title: "Q5",
+        components: [
+          {
+            img: require("../assets/img/F1.png"),
+            name: 'F1'
+          }, {
+            img: require("../assets/img/F2.png"),
+            name: 'F2'
+          },
+          {
+            img: require("../assets/img/F3.png"),
+            name: 'F3'
+          }, {
+            img: require("../assets/img/F4.png"),
+            name: 'F4'
+          }, {
+            img: require("../assets/img/F5.png"),
+            name: 'F5'
+          }, {
+            img: require("../assets/img/F6.png"),
+            name: 'F6'
+          }
+        ],
         context:
           "进入了图书馆，发现空气中漂浮着各种各样的人物职业形象气泡，你好奇地伸手触碰，一阵神奇的 力量涌入了你的身体：你拥有了匹配的技能！但同时，一阵困倦感袭来，你会：",
-         Choices: [
+        Choices: [
           {
-            label: "还是尽量多触碰几个感兴趣的气泡，这样的机会可不多",
+            label: "尽量多触碰几个气泡，这样的机会可不多",
             value: "C1",
           },
           {
@@ -148,9 +186,15 @@ export default new Vuex.Store({
         translateY: "40vh",
         transitionTime: 0,
         title: "Q6",
+        components:[
+          {
+            img: require("../assets/img/jingzi.png"),
+            name: 'mojing'
+          }
+        ],
         context:
           "在一个房间内，你看到了一面魔镜。它对你说：你有一次机会，可以在里面看到 10 年后的自己，但 要注意的是：如果你心里不确定自己会变成什么样，可能会被未来吞噬……你选择：",
-          Choices: [
+        Choices: [
           {
             label: "已经有模糊的方向，可以一试",
             value: "c1",
@@ -167,12 +211,12 @@ export default new Vuex.Store({
     increment: (state, data) => {
       state.count++;
     },
-    changeCurrentChoice:(state,data)=>{
+    changeCurrentChoice: (state, data) => {
       console.log(data)
-      const {index,choice} = data
-      const obj = {...state.cardArrs[index],currentChoice:choice}
-      console.log(obj,'3444',state.cardArrs)
-      state.cardArrs.splice(index,1,obj)
+      const { index, choice } = data
+      const obj = { ...state.cardArrs[index], currentChoice: choice }
+      console.log(obj, '3444', state.cardArrs)
+      state.cardArrs.splice(index, 1, obj)
     }
   },
   getters: {
@@ -185,7 +229,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    increment (context) {
+    increment(context) {
       context.commit('increment')
     }
   },

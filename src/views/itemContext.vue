@@ -1,9 +1,17 @@
 <template>
-  <div><slot name="head" k="kkk"></slot></div>
+  <div><slot ></slot>
+    点点滴滴
+  </div>
 </template>
 <script>
 export default {
   name: "itemContext",
+  props:{
+    item
+  },
+  created(){
+    console.log(item)
+  }
 };
 </script>
 <style lang="scss">

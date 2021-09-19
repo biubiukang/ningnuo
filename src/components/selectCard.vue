@@ -1,12 +1,13 @@
 <template>
   <div class="selectCard" @click.stop="next">
-    {{context}}
+    <span style="color:red">{{value}}: </span>{{context}}
   </div>
 </template>
 <script>
 export default {
   name: "selectCard",
   props:{
+      value:String,
       context:String,
       active:String
   },
@@ -20,9 +21,18 @@ export default {
 </script>
 <style lang="scss">
 .selectCard{
-  margin-top:200px;
-  color:white;
-  max-width: 120px;
+  color:#583E49;
+  font-size: 12px;
+  padding: 5px 8px;
+  width: 90%;
+  border-radius: 50px;
+  border:1px solid #523745;
+  background: #FBE996;
+  box-shadow: 2px 5px 5px #888888;;
+  margin:10px;
+  text-align: left;
+  // background: url('../assets/img/qselect3.png') no-repeat;
+//   background-size: 100% 100%;
   p {
     font-family: 'Audiowide';
     text-align: center;

@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 import MyPlugin from './utils'
 import fastClick from 'fastclick'
+import animated from 'animate.css' 
+Vue.use(animated)
+
 fastClick.attach(document.body);
 
 // 引入全局样式
@@ -15,7 +18,7 @@ import '@babel/polyfill'
 // 移动端适配
 import 'lib-flexible/flexible.js'
 // 授权
-import '@/permission'
+// import '@/permission'
 
 import loadingUIRegistry from './components/FullscreenLoading/index'
 Vue.use(loadingUIRegistry)

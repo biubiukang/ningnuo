@@ -46,8 +46,7 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
-    },
-    disableHostCheck: true
+    }
   },
 
   configureWebpack: config => {
