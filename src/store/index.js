@@ -30,7 +30,11 @@ export default new Vuex.Store({
           {
             img: require("../assets/img/ws.png"),
             name: 'ws2'
-          }
+          },
+            {
+              img: require("../assets/img/enter.png"),
+              name: 'enter'
+            }
         ],
       },
       {
@@ -95,7 +99,7 @@ export default new Vuex.Store({
           }
         ],
         context:
-          "出门以后,滑轮四周的树居然都变得光秃秃，只有几朵巨大艳丽得花，所有生物得大小彷佛都颠倒了······一直巨大得诺丁鸭朝你走来，你会",
+          "出门以后,滑轮四周的树居然都变得光秃秃，只有几朵巨大艳丽得花，所有生物得大小彷佛都颠倒了······一只巨大得诺丁鸭朝你走来，你会",
         Choices: [
           { 
             title:'A',
@@ -119,7 +123,7 @@ export default new Vuex.Store({
         transitionTime: 1,
         title: "Q3",
         context:
-          "走过诺丁桥，你看到一个美丽得魔女，但她并没有发现你,一个人坐在图书馆门外草坪。你会：",
+          "你看到一个美丽的魔女，但她并没有发现你,一个人坐在图书馆门外草坪。你会：",
         Choices: [
           {
             title:'A',

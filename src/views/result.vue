@@ -2,7 +2,7 @@
   <div class="index">
     <div class="card-item" :style="[
             { background: `url(${imgurl})` },
-            { backgroundSize: 'cover' },
+            { backgroundSize: '100% 100%' },
           ]">
       
     </div>
@@ -32,7 +32,7 @@ export default {
 .card-item {
   position: absolute;
   width: 100%;
-  height: 18rem;
+  height: 100vh;
   text-align: center;
   font-size: 18px;
   border-radius: 5px;

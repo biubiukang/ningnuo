@@ -465,6 +465,13 @@ export default {
   background-size: contain;
   animation: zoomOutLeft 2.5s infinite;
 }
+.enter{
+  position: absolute;
+  bottom: 8%;
+  right: 20%;
+  width: 150px;
+  height: 100px;
+}
 .phone {
   position: absolute;
   top: 10%;
