@@ -478,7 +478,7 @@ export default {
 .card-item {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   text-align: center;
   font-size: 18px;
   border-radius: 5px;

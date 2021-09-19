@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 22vh">
+  <div class="form">
     <div class="form-group">
       <div class="mb-2vh">
         <label for="name">姓名（必填）</label>
@@ -99,6 +99,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.form{
+  display:inline-block;
+  margin-top:120px;
+}
 .form-group {
   font-size: 0.4rem;
   text-align: left;
@@ -109,7 +113,7 @@ export default {
   padding-left: 25px;
 }
 .mb-2vh {
-  margin-bottom: 2vh;
+  margin-bottom: 3vh;
 }
 input {
   width: 140px;

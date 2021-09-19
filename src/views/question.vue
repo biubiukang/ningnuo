@@ -49,7 +49,7 @@ export default {
 <style lang="scss">
 .question {
   padding: 12px 16px;
-  width: inherit;
+  width: 80%;
   color: #3C2D54;
   position: fixed;
   bottom: 2rem;
