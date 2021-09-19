@@ -1,6 +1,6 @@
 <template>
   <div class="selectCard" @click.stop="next">
-    <span style="color:red">{{value}}: </span>{{context}}
+   {{value}}: {{context}}
   </div>
 </template>
 <script>
