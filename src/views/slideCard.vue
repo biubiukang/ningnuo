@@ -556,7 +556,7 @@ export default {
   .item-inner {
     overflow: hidden;
     box-sizing: border-box;
-    width: 90vw;
+    width: 95vw;
     height: 100%;
     padding: 0 18px;
     margin: 0 auto;
