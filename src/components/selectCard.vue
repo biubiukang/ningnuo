@@ -24,7 +24,6 @@ export default {
   color:#583E49;
   font-size: 12px;
   padding: 5px 8px;
-  width: 90%;
   border-radius: 50px;
   border:1px solid #523745;
   background: #FBE996;

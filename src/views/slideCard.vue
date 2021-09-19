@@ -397,6 +397,31 @@ export default {
 .come {
   animation: backInRight 3s;
 }
+.fl1{
+  position: absolute;
+  top: 10%;
+  left:0;
+  width: 100px;
+  height: 200px;
+  animation: bounceInUp 3s;
+}
+.fl2{
+  position: absolute;
+  top: 20%;
+  right: -10px;
+  width: 100px;
+  height: 200px;
+  animation: bounceInUp 3s;
+}
+.ws{
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 120px;
+  height: 80px;
+  background-size: contain;
+  animation: bounce 3s infinite;
+}
 .phone {
   position: absolute;
   top: 10%;
@@ -485,6 +510,7 @@ export default {
   will-change: transform;
   overflow: hidden;
   .item-inner {
+    overflow: hidden;
     box-sizing: border-box;
     width: 90vw;
     height: 100%;
