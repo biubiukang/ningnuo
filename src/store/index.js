@@ -22,6 +22,14 @@ export default new Vuex.Store({
           {
             img: require("../assets/img/ws.png"),
             name: 'ws'
+          },
+          {
+            img: require("../assets/img/ws.png"),
+            name: 'ws1'
+          },
+          {
+            img: require("../assets/img/ws.png"),
+            name: 'ws2'
           }
         ],
       },

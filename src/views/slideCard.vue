@@ -68,9 +68,9 @@ export default {
     return {
       shake: false,
       storys: {
-        s2: "校园奇妙⽇： 翌⽇，醒来后，你 发现宁诺的校园 ⾥，充斥着不寻常 的⽓氛…… 宁诺居然变成了魔 法学校？",
-        s4: "⾛过诺丁桥",
-        s8: "正在分析你的校园 魔法⼈格…… xx（昵称）的魔法 职业为xxx 这样的职业仅占宁 诺的 xx%",
+        s1: "校园奇妙⽇： 翌⽇，醒来后，你 发现宁诺的校园 ⾥，充斥着不寻常 的⽓氛…… 宁诺居然变成了魔 法学校？",
+        s3: "⾛过诺丁桥",
+        end: "正在分析你的校园 魔法⼈格…… xx（昵称）的魔法 职业为xxx 这样的职业仅占宁 诺的 xx%",
       },
       isStart: false,
       isClick: true,
@@ -217,31 +217,6 @@ export default {
           // 滑动距离大于滑动限制的距离,滑动到最大值
           if (this.slideDirection === 1) {
             this.slideUp();
-            if ([2, 4, 8].includes(this.currentIndex)) {
-              var _this = this;
-              let loadingui = this.$loadingui({
-                type: "auto",
-                story: this.storys["s" + this.currentIndex],
-                callback: () => {
-                  // eslint-disable-next-line no-console
-                  if (_this.currentIndex == _this.cardArrs.length - 1) {
-                    _this.$router.push({
-                      name: "Result",
-                      param: {
-                        id: "xxx",
-                      },
-                    });
-                  }
-                },
-              });
-              let obj = setInterval(
-                () => {
-                  loadingui.close();
-                  clearInterval(obj);
-                },
-                this.currentIndex == 4 ? 1000 : 5000
-              );
-            }
           } else {
             this.slideDown();
           }
@@ -280,6 +255,51 @@ export default {
     // 向上滑动切换
     slideUp() {
       console.log(333);
+      if ([1, 3].includes(this.currentIndex)) {
+        var _this = this;
+        let loadingui = this.$loadingui({
+          type: "auto",
+          story: this.storys["s" + this.currentIndex],
+          callback: () => {
+            // eslint-disable-next-line no-console
+            if (_this.currentIndex == _this.cardArrs.length - 1) {
+              _this.$router.push({
+                name: "Result",
+                param: {
+                  id: "xxx",
+                },
+              });
+            }
+          },
+        });
+        let obj = setInterval(
+          () => {
+            loadingui.close();
+            clearInterval(obj);
+          },
+          this.currentIndex == 3 ? 1000 : 5000
+        );
+      }
+      if (this.currentIndex == this.cardArrs.length - 1) {
+        var _this = this;
+        let loadingui = this.$loadingui({
+          type: "auto",
+          story: this.storys["end"],
+          callback: () => {
+            // eslint-disable-next-line no-console
+            _this.$router.push({
+              name: "Result",
+              param: {
+                id: "xxx",
+              },
+            });
+          },
+        });
+        let obj = setInterval(() => {
+          loadingui.close();
+          clearInterval(obj);
+        }, 4000);
+      }
       if (this.currentIndex === this.cardArrs?.length - 1) {
         return this.returnBack();
       }
@@ -397,37 +417,55 @@ export default {
 .come {
   animation: backInRight 3s;
 }
-.fl1{
+.fl1 {
   position: absolute;
-  top: 10%;
-  left:0;
+  top: 35%;
+  left: 0;
   width: 100px;
   height: 200px;
-  animation: bounceInUp 3s;
+  animation: lightSpeedInLeft 1s;
 }
-.fl2{
+.fl2 {
   position: absolute;
-  top: 20%;
+  top: 10%;
   right: -10px;
   width: 100px;
   height: 200px;
-  animation: bounceInUp 3s;
+  animation: lightSpeedInRight 1s;
 }
-.ws{
+.ws {
   position: absolute;
   top: 10%;
-  right: 10%;
+  right: 5%;
+  width: 200px;
+  height: 120px;
+  background-size: contain;
+  animation: zoomOutLeft 3s infinite;
+}
+.ws1 {
+  position: absolute;
+  top: 5%;
+  right: 15%;
+  width: 200px;
+  height: 120px;
+  background-size: contain;
+  animation: zoomOutLeft 2s infinite;
+}
+.ws2 {
+  position: absolute;
+  top: 15%;
+  right: -5%;
   width: 120px;
   height: 80px;
   background-size: contain;
-  animation: bounce 3s infinite;
+  animation: zoomOutLeft 2.5s infinite;
 }
 .phone {
   position: absolute;
   top: 10%;
   left: 10%;
-  width: 120px;
-  height: 80px;
+  width: 250px;
+  height: 150px;
   background-size: contain;
   animation: bounce 3s infinite; /* referring directly to the animation's @keyframe declaration */
 }
@@ -499,6 +537,7 @@ export default {
   position: absolute;
   bottom: 100px;
   left: 25%;
+  animation: fadeIn 2s;
 }
 .card-item {
   position: absolute;
