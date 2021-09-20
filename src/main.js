@@ -18,7 +18,7 @@ import '@babel/polyfill'
 // 移动端适配
 import 'lib-flexible/flexible.js'
 // 授权
-// import '@/permission'
+import '@/permission'
 
 import loadingUIRegistry from './components/FullscreenLoading/index'
 Vue.use(loadingUIRegistry)

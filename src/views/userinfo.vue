@@ -3,31 +3,31 @@
     <div class="form-group">
       <div class="mb-2vh">
         <label for="name">姓名（必填）</label>
-        <input name="name" class="string" :value="username" required />
+        <input name="name" class="string" v-model="username" required />
       </div>
       <div class="mb-2vh">
         <label for="sex">性别（必填）</label>
-        <input name="sex" class="string" :value="sex" required />
+        <input name="sex" class="string" v-model="sex" required />
       </div>
       <div class="mb-2vh">
-        <label for="school">学校（必填）</label>
-        <input name="school" class="string" :value="school" required />
+        <label for="school">学院（必填）</label>
+        <input name="school" class="string" v-model="school" required />
       </div>
       <div class="mb-2vh">
         <label for="subject">专业（必填）</label>
-        <input name="subject" class="string" :value="subject" required />
+        <input name="subject" class="string" v-model="subject" required />
       </div>
       <div class="mb-2vh">
         <label for="mobile">电话（必填）</label>
-        <input name="mobile" class="string" :value="mobile" required />
+        <input name="mobile" class="string" v-model="mobile" required />
       </div>
       <div class="mb-2vh">
         <label for="wxno">微信号（必填）</label>
-        <input name="wxno" class="string" :value="wxNo" required />
+        <input name="wxno" class="string" v-model="wxNo" required />
       </div>
       <div class="mb-2vh">
         <label for="targetjob">期望职业</label>
-        <input name="targetjob" class="string" :value="targetJob" />
+        <input name="targetjob" class="string" v-model="targetJob" />
       </div>
 
       <input
@@ -43,7 +43,7 @@
 <script>
 import { getUserInfo } from "@/api/user";
 import { updateUserInfo } from "@/api/user";
-import { Toast } from 'vant'
+import { Toast } from "vant";
 export default {
   name: "Userinfo",
   props: {
@@ -54,26 +54,22 @@ export default {
       .then((res) => {
         Toast.clear();
         const info = res.data;
-        Toast({
-          message: res.msg,
-        });
         if (res.code && res.code !== 200) {
-          // this.$parent.slideUp();
+          Toast({
+            message: res.msg,
+          });
         } else {
           this.username = info.username;
           this.sex = info.sex;
           this.school = info.school;
-          this.subject = info.subject;
+          this.subject = info.schoolSubject;
           this.mobile = info.mobile;
           this.wxNo = info.wxNo;
           this.targetJob = info.targetJob;
         }
-        resolve(res);
       })
       .catch((error) => {
-        Toast({
-          message: '系统忙不过来啦~ 请过会儿重试',
-        });
+        console.log(error);
       });
   },
   data() {
@@ -89,17 +85,39 @@ export default {
   },
   methods: {
     start() {
-      this.$emit("start");
-      // updateUserInfo({});
-
+      
+      updateUserInfo({
+        username: this.username,
+        sex: this.sex,
+        school: this.school,
+        subject: this.subject,
+        mobile: this.mobile,
+        wxNo: this.wxNo,
+        targetJob: this.targetJob,
+      })
+        .then((res) => {
+          Toast.clear();
+          const info = res.data;
+          if (res.code && res.code !== 200) {
+            Toast({
+              message: res.msg,
+            });
+            
+          } else {
+            this.$parent.slideUp();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
 </script>
 <style lang="scss">
-.form{
-  display:inline-block;
-  margin-top:120px;
+.form {
+  display: inline-block;
+  margin-top: 120px;
 }
 .form-group {
   font-size: 0.4rem;

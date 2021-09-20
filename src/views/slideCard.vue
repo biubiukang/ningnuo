@@ -36,17 +36,20 @@
                 { background: `url(${i.img}) no-repeat` },
                 { backgroundSize: 'contain' },
               ]"
-              :class="[shake ? i.name : '']"
+              :class="[i.name]"
+              @click="start(i.click2next)"
             ></div>
           </div>
-          <div :class="[come ? 'come' : '']">
-            <Question
-              v-if="!item.noQ&&show"
-              v-bind="item"
-              @nextPage="nextPage"
-            ></Question>
-          </div>
-          <Userinfo v-if="item.Id === 'profile'" @start="start" />
+          <Userinfo v-if="item.Id === 'profile'" />
+          <transition name="fade">
+            <div :class="[come ? 'come' : '']">
+              <Question
+                v-if="!item.noQ && show"
+                v-bind="item"
+                @nextPage="nextPage"
+              ></Question>
+            </div>
+          </transition>
         </div>
       </div>
     </div>
@@ -66,8 +69,7 @@ export default {
   },
   data() {
     return {
-      shake: false,
-      show:false,
+      show: false,
       storys: {
         s1: "校园奇妙⽇： 翌⽇，醒来后，你 发现宁诺的校园 ⾥，充斥着不寻常 的⽓氛…… 宁诺居然变成了魔 法学校？",
         s3: "⾛过诺丁桥",
@@ -86,8 +88,10 @@ export default {
     };
   },
   methods: {
-    start() {
-      this.slideUp();
+    start(flag) {
+      if (flag) {
+        this.slideUp();
+      }
     },
     nextPage() {
       console.log(111);
@@ -95,11 +99,6 @@ export default {
     },
     // 滑动开始
     playerTouchStart(ev) {
-      this.shake = false;
-      setTimeout(() => {
-        // 取消晃动样式
-        this.shake = true;
-      }, 800);
       ev = ev || event;
       this.isClick = true;
       // tounches类数组，等于1时表示此时有只有一只手指在触摸屏幕
@@ -206,10 +205,6 @@ export default {
     },
     // 滑动结束
     playerTouchEnd(ev) {
-      this.show = false
-      setTimeout(()=>{
-         this.show =true
-      },3000)
       ev = ev || event;
       if (ev?.changedTouches?.length === 1) {
         this.endY = ev.changedTouches[0].clientY;
@@ -259,7 +254,10 @@ export default {
     },
     // 向上滑动切换
     slideUp() {
-      console.log(333);
+      this.show = false;
+      setTimeout(() => {
+        this.show = true;
+      }, 2000);
       if ([1, 3].includes(this.currentIndex)) {
         var _this = this;
         let loadingui = this.$loadingui({
@@ -342,6 +340,10 @@ export default {
     },
     // 向下滑动切换
     slideDown() {
+      this.show = false;
+      setTimeout(() => {
+        this.show = true;
+      }, 2000);
       if (this.currentIndex === 0) {
         return this.returnBack();
       }
@@ -419,16 +421,24 @@ export default {
   position: relative;
   height: 90vh;
 }
+.ent {
+  position: absolute;
+  bottom: 5%;
+  left: 25%;
+  width: 200px;
+  height: 240px;
+  animation: heartBeat 2s infinite;
+}
 .come {
   animation: backInRight 3s;
 }
 .fl1 {
   position: absolute;
   top: 35%;
-  left: 0;
+  left: -6%;
   width: 100px;
   height: 200px;
-  animation: lightSpeedInLeft 1s;
+  animation: swing 3s infinite;
 }
 .fl2 {
   position: absolute;
@@ -436,7 +446,7 @@ export default {
   right: -10px;
   width: 100px;
   height: 200px;
-  animation: lightSpeedInRight 1s;
+  animation: swing 2s infinite;
 }
 .ws {
   position: absolute;
@@ -445,7 +455,7 @@ export default {
   width: 200px;
   height: 120px;
   background-size: contain;
-  animation: zoomOutLeft 3s infinite;
+  animation: zoomOutLeft 5s infinite;
 }
 .ws1 {
   position: absolute;
@@ -454,7 +464,7 @@ export default {
   width: 200px;
   height: 120px;
   background-size: contain;
-  animation: zoomOutLeft 2s infinite;
+  animation: zoomOutLeft 4s infinite;
 }
 .ws2 {
   position: absolute;
@@ -463,11 +473,11 @@ export default {
   width: 120px;
   height: 80px;
   background-size: contain;
-  animation: zoomOutLeft 2.5s infinite;
+  animation: zoomOutLeft 3.5s infinite;
 }
-.enter{
+.enter {
   position: absolute;
-  bottom: 8%;
+  bottom: 0%;
   right: 20%;
   width: 150px;
   height: 100px;
@@ -486,7 +496,7 @@ export default {
   bottom: 0;
   width: 300px;
   height: 500px;
-  animation: bounceInUp 3s;
+  animation: shakeX 5s infinite;
 }
 .student {
   position: absolute;
@@ -494,7 +504,7 @@ export default {
   width: 100%;
   height: 100vh;
   border-radius: 15px;
-  animation: backInRight 3s;
+  animation: pulse 3s infinite;
 }
 .F1 {
   width: 160px;
@@ -549,7 +559,13 @@ export default {
   position: absolute;
   bottom: 100px;
   left: 25%;
-  animation: fadeIn 2s;
+  animation: flipInY 5s infinite;
+}
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 2s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active, 2.1.8 版本以下 */ {
+    opacity: 0
 }
 .card-item {
   position: absolute;

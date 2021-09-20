@@ -6,7 +6,7 @@ import { api } from '@/config'
 const service = axios.create({
   baseURL: api.base_api, // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 3000 // request timeout
 })
 
 // request拦截器 request interceptor
@@ -42,9 +42,10 @@ service.interceptors.response.use(
       })
       // 登录超时,重新登录
       if (res.code === 90001 || res.code === 90002) {
-        store.dispatch('/').then(() => {
+        store.dispatch('user/setLoginStatus', 0)
+        setTimeout(() => {
           location.reload()
-        })
+        }, 2000)
       }
       return Promise.reject(res || 'error')
     } else {

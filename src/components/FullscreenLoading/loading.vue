@@ -1,7 +1,7 @@
 <template>
   <transition name = "fade">
     <div class="preloader" v-if="showLoading">
-      <div class="preloader-progress">
+      <div class="preloader-progress" @click="close()">
         <!-- <div class="preloader-progress-bar" :style="{ width: loadPercent + '%' }"> -->
         {{ story }}
         <!-- </div> -->
@@ -79,7 +79,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 
 .fade-enter-active, .fade-leave-active {
     transition: opacity 2s

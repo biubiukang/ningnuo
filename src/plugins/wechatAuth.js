@@ -75,7 +75,7 @@ class VueWechatAuthPlugin {
     }
     const code = this._code
     this._code = null
-    // console.log('code: ' + code)
+    console.log('code: ' + code)
     return code
   }
 }

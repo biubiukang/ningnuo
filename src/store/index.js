@@ -20,6 +20,11 @@ export default new Vuex.Store({
         noQ: true,
         components: [
           {
+            img: require("../assets/img/item/enter.png"),
+            name: 'ent',
+            click2next: true
+          },
+          {
             img: require("../assets/img/ws.png"),
             name: 'ws'
           },
@@ -30,11 +35,7 @@ export default new Vuex.Store({
           {
             img: require("../assets/img/ws.png"),
             name: 'ws2'
-          },
-            {
-              img: require("../assets/img/enter.png"),
-              name: 'enter'
-            }
+          }
         ],
       },
       {

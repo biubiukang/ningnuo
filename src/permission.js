@@ -23,7 +23,6 @@ router.beforeEach(async (to, from, next) => {
       try {
         wechatAuth.returnFromWechat(window.location.href)
         const code = wechatAuth.code
-        console.log(code)
         // 通过code换取token
         await store.dispatch('user/loginWechatAuth', code)
         await store.dispatch('user/setLoginStatus', 2)

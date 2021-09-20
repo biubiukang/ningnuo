@@ -28,7 +28,7 @@ export function updateUserInfo(params) {
   return request({
     url: api.base_api + '/weixin/api/answer/userinfo',
     method: 'put',
-    data: qs.stringify(params)
+    data: params
   })
 }
 
