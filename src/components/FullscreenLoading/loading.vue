@@ -1,9 +1,8 @@
 <template>
   <transition name = "fade">
     <div class="preloader" v-if="showLoading">
-      <div class="preloader-progress" @click="close()">
+      <div class="preloader-progress" v-html="story" @click="close()">
         <!-- <div class="preloader-progress-bar" :style="{ width: loadPercent + '%' }"> -->
-        {{ story }}
         <!-- </div> -->
       </div>
     </div>
@@ -96,6 +95,7 @@ export default {
   height: 100%;
   overflow: hidden;
   background-color: rgb(23, 24, 24);
+  text-align:center;
 
   /* background-image: linear-gradient(90deg,#52b6ec 10%,#19a9d5 90%); */
   z-index: 9999;
@@ -108,8 +108,8 @@ export default {
   bottom: 0;
   right: 0;
   position: absolute;
-  width: 300px;
-  height: 120px;
+  width: 90vw;
+  height: 60vh;
   /* opacity: 0.2; */
   color: white;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;

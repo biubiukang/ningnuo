@@ -7,12 +7,10 @@
         <selectCard
           :context="v.label"
           :value="v.title"
-          :class="{ active: getCurrentChoiceByIndex(index) == v.value }"
-          @nextPage="nextPage(index, v.value)"
+          :class="{ active: getCurrentChoiceByIndex(itemIndex) == v.value }"
+          @nextPage="nextPage(itemIndex, v.value)"
         ></selectCard>
       </div>
-      <!-- <selectCard :context="leftChoice" @nextPage="nextPage"></selectCard>
-      <selectCard :context="rightChoice" @nextPage="nextPage"></selectCard> -->
     </div>
   </div>
 </template>
@@ -20,7 +18,7 @@
 import selectCard from "../components/selectCard.vue";
 import { mapMutations, mapGetters } from "vuex";
 export default {
-  name: "Index",
+  name: "Question",
   components: {
     selectCard,
   },
@@ -28,7 +26,6 @@ export default {
     ...mapGetters(["getCurrentChoiceByIndex"]),
   },
   mounted() {
-    console.log(this.getCurrentChoiceByIndex(1));
   },
   methods: {
     nextPage(index, choice) {
@@ -41,8 +38,7 @@ export default {
     title: String,
     context: String,
     Choices: Array,
-    leftChoice: String,
-    rightChoice: String,
+    itemIndex: Number
   },
 };
 </script>

@@ -117,7 +117,7 @@ export default {
 <style lang="scss">
 .form {
   display: inline-block;
-  margin-top: 120px;
+  margin-top: 26vh;
 }
 .form-group {
   font-size: 0.4rem;

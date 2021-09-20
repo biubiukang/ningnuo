@@ -12,8 +12,8 @@
     <div class="card-wrapper">
       <div
         class="card-item"
-        v-for="(item, index) in cardArrs"
-        :key="index"
+        v-for="(item, cindex) in cardArrs"
+        :key="cindex"
         :style="[
           { zIndex: item.zIndex },
           {
@@ -30,7 +30,7 @@
             { backgroundSize: '100% 100%' },
           ]"
         >
-          <div v-for="(i, index) in item.components" :key="index">
+          <div v-for="(i, comindex) in item.components" :key="comindex">
             <div
               :style="[
                 { background: `url(${i.img}) no-repeat` },
@@ -46,6 +46,7 @@
               <Question
                 v-if="!item.noQ && show"
                 v-bind="item"
+                v-bind:itemIndex="cindex"
                 @nextPage="nextPage"
               ></Question>
             </div>
@@ -58,7 +59,8 @@
 <script>
 import Userinfo from "./userinfo.vue";
 import Question from "./question.vue";
-import { mapState } from "vuex";
+import { Toast } from "vant";
+import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   components: {
     Userinfo,
@@ -66,14 +68,15 @@ export default {
   },
   computed: {
     ...mapState(["cardArrs"]),
+    ...mapGetters(["getCurrentChoiceByIndex"]),
   },
   data() {
     return {
       show: false,
       storys: {
-        s1: "校园奇妙⽇： 翌⽇，醒来后，你 发现宁诺的校园 ⾥，充斥着不寻常 的⽓氛…… 宁诺居然变成了魔 法学校？",
+        s1: "校园奇妙⽇</br></br></br>翌日，你从睡梦中醒来</br></br>你发现宁诺的校园里</br></br>充斥着不寻常的⽓氛</br></br>宁诺居然变成了</br></br>魔法学院",
         s3: "⾛过诺丁桥",
-        end: "正在分析你的校园 魔法⼈格…… xx（昵称）的魔法 职业为xxx 这样的职业仅占宁 诺的 xx%",
+        end: "正在分析你的校园魔法⼈格…… xxxx的魔法职业为xxx 这样的职业仅占宁诺的xx%",
       },
       isStart: false,
       isClick: true,
@@ -94,7 +97,6 @@ export default {
       }
     },
     nextPage() {
-      console.log(111);
       this.slideUp();
     },
     // 滑动开始
@@ -337,6 +339,13 @@ export default {
         this.currentIndex = this.cardArrs?.length - 1;
       }
       console.log("currentIndex---", this.currentIndex);
+      if (!this.cardArrs[this.currentIndex - 1].noQ && !this.getCurrentChoiceByIndex(this.currentIndex - 1)) {
+        Toast.clear();
+        Toast({
+          message: "请先回答这道题~",
+        });
+        this.slideDown();
+      }
     },
     // 向下滑动切换
     slideDown() {
@@ -561,11 +570,12 @@ export default {
   left: 25%;
   animation: flipInY 5s infinite;
 }
-.fade-enter-active, .fade-leave-active {
-    transition: opacity 2s
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 2s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active, 2.1.8 版本以下 */ {
-    opacity: 0
+  opacity: 0;
 }
 .card-item {
   position: absolute;

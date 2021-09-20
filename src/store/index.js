@@ -255,7 +255,6 @@ export default new Vuex.Store({
       console.log(data)
       const { index, choice } = data
       const obj = { ...state.cardArrs[index], currentChoice: choice }
-      console.log(obj, '3444', state.cardArrs)
       state.cardArrs.splice(index, 1, obj)
     }
   },
