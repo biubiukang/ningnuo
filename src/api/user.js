@@ -32,6 +32,14 @@ export function updateUserInfo(params) {
   })
 }
 
+export function postAnswer(params) {
+  return request({
+    url: api.base_api + '/weixin/api/answer',
+    method: 'post',
+    data: params
+  })
+}
+
 /**
  * 默认请求url import { api } from '@/config' 的 base_api + /wechat/auth2
  * 请求common_api打头的参照如下示例：

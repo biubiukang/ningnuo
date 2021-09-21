@@ -59,6 +59,8 @@
 <script>
 import Userinfo from "./userinfo.vue";
 import Question from "./question.vue";
+import { postAnswer } from "@/api/user";
+import store from "@/store";
 import { Toast } from "vant";
 import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
@@ -76,7 +78,12 @@ export default {
       storys: {
         s1: "校园奇妙⽇</br></br></br>翌日，你从睡梦中醒来</br></br>你发现宁诺的校园里</br></br>充斥着不寻常的⽓氛</br></br>宁诺居然变成了</br></br>魔法学院",
         s3: "⾛过诺丁桥",
-        end: "正在分析你的校园魔法⼈格…… xxxx的魔法职业为xxx 这样的职业仅占宁诺的xx%",
+        end:
+          "正在分析你的魔法人格</br>……</br></br>" +
+          store.getters.userInfo.nickName +
+          "的魔法职业是……</br></br>" +
+          Math.round(Math.random() * 20 + 5) +
+          "%的UNNCer拥有和你同样的魔法</br></br></br>获取职业卡片保存到相册</br></br>联系魔法教授</br></br>让他帮你寻找同频人吧",
       },
       isStart: false,
       isClick: true,
@@ -290,20 +297,46 @@ export default {
         let loadingui = this.$loadingui({
           type: "auto",
           story: this.storys["end"],
+          backgroud: require("../assets/img/resultback.jpg"),
           callback: () => {
             // eslint-disable-next-line no-console
-            _this.$router.push({
-              name: "Result",
-              param: {
-                id: "xxx",
-              },
-            });
+
+            var answer =
+              _this.getCurrentChoiceByIndex(2) +
+              _this.getCurrentChoiceByIndex(3) +
+              _this.getCurrentChoiceByIndex(4) +
+              _this.getCurrentChoiceByIndex(5) +
+              _this.getCurrentChoiceByIndex(6) +
+              _this.getCurrentChoiceByIndex(7);
+
+            postAnswer({
+              option: answer,
+            })
+              .then((res) => {
+                Toast.clear();
+                const info = res.data;
+                if (res.code && res.code !== 200) {
+                  Toast({
+                    message: res.msg,
+                  });
+                } else {
+                  _this.$router.push({
+                    name: "Result",
+                    param: {
+                      tag: info.myTag,
+                    },
+                  });
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
           },
         });
         let obj = setInterval(() => {
           loadingui.close();
           clearInterval(obj);
-        }, 4000);
+        }, 5000);
       }
       if (this.currentIndex === this.cardArrs?.length - 1) {
         return this.returnBack();
@@ -339,7 +372,10 @@ export default {
         this.currentIndex = this.cardArrs?.length - 1;
       }
       console.log("currentIndex---", this.currentIndex);
-      if (!this.cardArrs[this.currentIndex - 1].noQ && !this.getCurrentChoiceByIndex(this.currentIndex - 1)) {
+      if (
+        !this.cardArrs[this.currentIndex - 1].noQ &&
+        !this.getCurrentChoiceByIndex(this.currentIndex - 1)
+      ) {
         Toast.clear();
         Toast({
           message: "请先回答这道题~",
@@ -409,12 +445,6 @@ export default {
       // 取消晃动样式
       this.come = true;
     }, 800);
-    //   const url = window.location.href
-    //  let data = qs.parse(url.split('?')[1]);
-    //  if(!data.code){
-    //      window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx35a905e0b2b65a65&redirect_uri=http://nz74fmo5uiz3.ngrok2.xiaomiqiu.cn/&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
-    //  }
-    // window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx35a905e0b2b65a65&redirect_uri=http://nz74fmo5uiz3.ngrok2.xiaomiqiu.cn/&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
   },
 };
 </script>

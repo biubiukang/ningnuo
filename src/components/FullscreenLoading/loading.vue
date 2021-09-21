@@ -1,6 +1,6 @@
 <template>
-  <transition name = "fade">
-    <div class="preloader" v-if="showLoading">
+  <transition name="fade">
+    <div class="preloader" v-if="showLoading" :style="computeStyle">
       <div class="preloader-progress" v-html="story" @click="close()">
         <!-- <div class="preloader-progress-bar" :style="{ width: loadPercent + '%' }"> -->
         <!-- </div> -->
@@ -20,8 +20,19 @@ export default {
       apiFinish: false,
       intervalObj: null,
       callback: null,
+      backgroud: null,
       story: "TEST TEXT",
     };
+  },
+  computed: {
+    computeStyle() {
+      if(this.backgroud) {
+        return [{ background: `url(${this.backgroud}) no-repeat` },
+            { backgroundSize: '100% 100%' }
+        ];
+      }
+      return {}
+    },
   },
   mounted() {
     if (this.type === "auto") {
@@ -79,12 +90,12 @@ export default {
 </script>
 
 <style>
-
-.fade-enter-active, .fade-leave-active {
-    transition: opacity 2s
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 2s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active, 2.1.8 版本以下 */ {
-    opacity: 0
+  opacity: 0;
 }
 
 .preloader {
@@ -94,10 +105,10 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: rgb(23, 24, 24);
-  text-align:center;
+  /* background-color: rgb(23, 24, 24); */
+  text-align: center;
 
-  /* background-image: linear-gradient(90deg,#52b6ec 10%,#19a9d5 90%); */
+  background-image: linear-gradient(90deg, #52b6ec 10%, #19a9d5 90%);
   z-index: 9999;
   transition: opacity 0.2s;
 }

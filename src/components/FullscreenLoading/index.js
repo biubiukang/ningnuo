@@ -3,7 +3,7 @@ import LoadingComponent from './loading.vue'
 
 const LoadingConstructor = vue.extend(LoadingComponent)
 
-function showLoading({type, story, callback}) {
+function showLoading({type, story, backgroud, callback}) {
     const loadingDom = new LoadingConstructor({
         el: document.createElement('div'),
         data () {
@@ -11,7 +11,8 @@ function showLoading({type, story, callback}) {
                 showLoading: true, // 是否显示
                 type: type, // 类型 auto 自动 default 手动
                 callback: callback,
-                story: story
+                story: story,
+                backgroud: backgroud
             }
         }
     })
