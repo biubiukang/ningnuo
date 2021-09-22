@@ -102,7 +102,6 @@ export default {
             Toast({
               message: res.msg,
             });
-            
           } else {
             this.$parent.slideUp();
           }

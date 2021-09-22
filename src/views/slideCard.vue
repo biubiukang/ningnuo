@@ -59,7 +59,7 @@
 <script>
 import Userinfo from "./userinfo.vue";
 import Question from "./question.vue";
-import { postAnswer } from "@/api/user";
+import { postAnswer, getTestStatus } from "@/api/user";
 import store from "@/store";
 import { Toast } from "vant";
 import { mapState, mapMutations, mapGetters } from "vuex";
@@ -217,7 +217,6 @@ export default {
       ev = ev || event;
       if (ev?.changedTouches?.length === 1) {
         this.endY = ev.changedTouches[0].clientY;
-        console.log("滑动结束-endY", this.endY);
         this.disY = this.startY - this.endY;
         if (Math.abs(this.disY) < this.slideDistance) {
           // 滑动距离小于滑动限制的距离,强行回到起点
@@ -267,6 +266,28 @@ export default {
       setTimeout(() => {
         this.show = true;
       }, 2000);
+      if (1 == this.currentIndex) {
+        var _this = this;
+        getTestStatus()
+          .then((res) => {
+            Toast.clear();
+            const info = res.data;
+            if (res.code && res.code !== 200) {
+              Toast({
+                message: res.msg,
+              });
+              _this.slideDown();
+            } else if (!info) {
+              Toast({
+                message: "请转发后获取更多测试机会~",
+              });
+              _this.slideDown();
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
       if ([1, 3].includes(this.currentIndex)) {
         var _this = this;
         let loadingui = this.$loadingui({
@@ -274,14 +295,6 @@ export default {
           story: this.storys["s" + this.currentIndex],
           callback: () => {
             // eslint-disable-next-line no-console
-            if (_this.currentIndex == _this.cardArrs.length - 1) {
-              _this.$router.push({
-                name: "Result",
-                param: {
-                  id: "xxx",
-                },
-              });
-            }
           },
         });
         let obj = setInterval(
@@ -322,7 +335,7 @@ export default {
                 } else {
                   _this.$router.push({
                     name: "Result",
-                    param: {
+                    params: {
                       tag: info.myTag,
                     },
                   });
@@ -388,7 +401,7 @@ export default {
       this.show = false;
       setTimeout(() => {
         this.show = true;
-      }, 2000);
+      }, 3000);
       if (this.currentIndex === 0) {
         return this.returnBack();
       }
@@ -549,13 +562,13 @@ export default {
   width: 160px;
   height: 160px;
   position: absolute;
-  right: 0;
+  right: 5vw;
   animation: rubberBand 3s infinite;
 }
 .F2 {
   position: absolute;
   left: 0;
-  top: 150px;
+  top: 15vh;
   width: 140px;
   height: 140px;
   animation: rubberBand 3s infinite;
@@ -563,7 +576,7 @@ export default {
 .F3 {
   position: absolute;
   right: 0;
-  top: 200px;
+  top: 25vh;
   width: 140px;
   height: 140px;
   animation: headShake 3s infinite;
@@ -573,23 +586,23 @@ export default {
   height: 100px;
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: 5vh;
   animation: headShake 3s infinite;
 }
 .F5 {
   position: absolute;
-  right: 50px;
-  bottom: 100px;
+  right: 10vw;
+  bottom: 30vh;
   width: 120px;
   height: 120px;
   animation: headShake 3s infinite;
 }
 .F6 {
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   position: absolute;
-  right: 0px;
-  bottom: 0;
+  right: 50vw;
+  bottom: 40vh;
   animation: rubberBand 3s infinite;
 }
 .mojing {
@@ -602,7 +615,7 @@ export default {
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 2s;
+  transition: opacity 2.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active, 2.1.8 版本以下 */ {
   opacity: 0;

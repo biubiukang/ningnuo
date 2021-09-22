@@ -24,6 +24,13 @@ export function getUserInfo() {
   })
 }
 
+export function getTestStatus() {
+  return request({
+    url: api.base_api + '/weixin/api/answer/status',
+    method: 'get',
+  })
+}
+
 export function updateUserInfo(params) {
   return request({
     url: api.base_api + '/weixin/api/answer/userinfo',

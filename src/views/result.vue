@@ -1,9 +1,7 @@
 <template>
   <div class="index">
-    <div class="card-item" :style="[
-            { background: `url(${imgurl})` },
-            { backgroundSize: '100% 100%' },
-          ]">
+    <div class="card-item" :style="computeStyle"></div>
+    <div>
       
     </div>
   </div>
@@ -11,20 +9,26 @@
 <script>
 export default {
   name: "Result",
-  data() {
-    return {
-      tagMap: {
-        '魔法狂人': '../assets/0916/结果1.jpg',
-        '角斗之王': '../assets/0916/结果2.jpg',
-        '发明专家': '../assets/0916/结果3.jpg',
-        '符咒专家': '../assets/0916/结果4.jpg',
-        '学院之星': '../assets/0916/结果5.jpg',
-        '外交首席': '../assets/0916/结果6.jpg',
-        '魔灵之首': '../assets/0916/结果7.jpg',
-        '首席秘书': '../assets/0916/结果8.jpg'
-      },
-      imgurl: require(tagMap[this.$route.params.myTag])
-    };
+  computed: {
+    computeStyle() {
+      console.log(this.$route.params.tag);
+      var img = [
+       "assets/img/tag/1.jpg",
+       "assets/img/tag/2.jpg",
+       "assets/img/tag/3.jpg",
+       "assets/img/tag/4.jpg",
+       "assets/img/tag/5.jpg",
+       "assets/img/tag/6.jpg",
+       "assets/img/tag/7.jpg",
+       "assets/img/tag/8.jpg",
+      ][this.$route.params.tag];
+      return [
+        {
+          background: `url("${require('@/' + img)}") no-repeat`,
+        },
+        { backgroundSize: "100% 100%" },
+      ];
+    },
   },
 };
 </script>
