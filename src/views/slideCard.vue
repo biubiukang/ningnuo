@@ -263,11 +263,11 @@ export default {
     // 向上滑动切换
     slideUp() {
       this.show = false;
+      var _this = this;
       setTimeout(() => {
         this.show = true;
       }, 2000);
-      if (1 == this.currentIndex) {
-        var _this = this;
+      if ([1, 3].includes(this.currentIndex)) {
         getTestStatus()
           .then((res) => {
             Toast.clear();
@@ -282,31 +282,30 @@ export default {
                 message: "请转发后获取更多测试机会~",
               });
               _this.slideDown();
+            } else {
+              if ([2, 4].includes(_this.currentIndex)) {
+                let loadingui = this.$loadingui({
+                  type: "auto",
+                  story: _this.storys["s" + (_this.currentIndex - 1)],
+                  callback: () => {
+                    // eslint-disable-next-line no-console
+                  },
+                });
+                let obj = setInterval(
+                  () => {
+                    loadingui.close();
+                    clearInterval(obj);
+                  },
+                  _this.currentIndex == 4 ? 1000 : 5000
+                );
+              }
             }
           })
           .catch((error) => {
             console.log(error);
           });
       }
-      if ([1, 3].includes(this.currentIndex)) {
-        var _this = this;
-        let loadingui = this.$loadingui({
-          type: "auto",
-          story: this.storys["s" + this.currentIndex],
-          callback: () => {
-            // eslint-disable-next-line no-console
-          },
-        });
-        let obj = setInterval(
-          () => {
-            loadingui.close();
-            clearInterval(obj);
-          },
-          this.currentIndex == 3 ? 1000 : 5000
-        );
-      }
-      if (this.currentIndex == this.cardArrs.length - 1) {
-        var _this = this;
+      if (_this.currentIndex == _this.cardArrs.length - 1) {
         let loadingui = this.$loadingui({
           type: "auto",
           story: this.storys["end"],
